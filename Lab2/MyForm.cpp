@@ -1,10 +1,8 @@
 #include "MyForm.h"
 
-using namespace Lab_2;
+using namespace Lab2;
 using namespace System;
 using namespace System::Windows::Forms;
-
-
 
 [STAThread]
 void Main(array<String^>^ args)
@@ -12,10 +10,10 @@ void Main(array<String^>^ args)
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 
-	Lab_2::MyForm form;
+	Lab2::MyForm form;
 	Application::Run(%form);
 }
-
+  //On Off 
 System::Void MyForm::button5_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	if (seeImage)
@@ -26,7 +24,7 @@ System::Void MyForm::button5_Click(System::Object^  sender, System::EventArgs^  
 	{
 		DrawPic();
 	}
-	DrawGrid();
+	Grid();
 	seeImage = !seeImage;
 }
 System::Void MyForm::MyForm_Load(System::Object^  sender, System::EventArgs^  e)
@@ -35,7 +33,7 @@ System::Void MyForm::MyForm_Load(System::Object^  sender, System::EventArgs^  e)
 	offset = 20;
 	g = pictureBox1->CreateGraphics();
 	//Loading bitmap image
-	 bmp = gcnew Bitmap(L"sharkLogo.bmp");
+	bmp = gcnew Bitmap(L"shark.bmp");
 	seeImage = false;
 }
 
@@ -51,14 +49,14 @@ System::Void MyForm::button1_Click(System::Object^  sender, System::EventArgs^  
 //Down
 System::Void MyForm::button2_Click(System::Object^  sender, System::EventArgs^  e)
 {
-	if (seeImage) 
+	if (seeImage)
 	{
 		place->setPos(place->GetX(), place->GetY() + offset);
 		DrawPic();
 	}
 }
 //Right
-System::Void MyForm::button3_Click(System::Object^  sender, System::EventArgs^  e) 
+System::Void MyForm::button3_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	if (seeImage)
 	{
@@ -67,46 +65,46 @@ System::Void MyForm::button3_Click(System::Object^  sender, System::EventArgs^  
 	}
 }
 //Left
-	System::Void MyForm::button4_Click(System::Object^  sender, System::EventArgs^  e)
+System::Void MyForm::button4_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	if (seeImage)
 	{
-		if (seeImage)
-		{
-			place->setPos(place->GetX() - offset, place->GetY());
-			DrawPic();
-		}
+		place->setPos(place->GetX() - offset, place->GetY());
+		DrawPic();
 	}
-	//Methods
+}
+//Methods
 
-	//draws bitmap picture
-	void MyForm::DrawPic()
+//draws bitmap picture
+void MyForm::DrawPic()
+{
+	g->DrawImage(bmp, place->GetX(), place->GetY());
+	Grid();
+
+}
+//draws grid
+void MyForm::Grid()
+{
+	int gridsize = 30;
+	int w = pictureBox1->Width;
+	int h = pictureBox1->Height;
+	int x = gridsize;
+	int y = gridsize;
+	System::Drawing::Point pt1, pt2;
+	Pen^ pen = gcnew Pen(Color::Teal);
+
+	while (y < h)
 	{
-		g->DrawImage(bmp, place->GetX(), place->GetY());
-		DrawGrid();
-
+		pt1 = Point(0, y);
+		pt2 = Point(w, y);
+		g->DrawLine(pen, pt1, pt2);
+		y += gridsize;
 	}
-	//draws grid
-	void MyForm::DrawGrid()
+	while (x < w)
 	{
-		int gridsize = 15;
-		int w = pictureBox1->Width;
-		int h = pictureBox1->Height;
-		int x = gridsize;
-		int y = gridsize;
-		System::Drawing::Point pt1, pt2;
-		Pen^ pen = gcnew Pen(Color::Teal);
-
-		while (y < h) 
-		{
-			pt1 = Point(0, y);
-			pt2 = Point(w, y);
-			g->DrawLine(pen, pt1, pt2);
-			y += gridsize;
-		}
-		while (x < w)
-		{
-			pt1 = Point(x, 0);
-			pt2 = Point(x, h);
-			g->DrawLine(pen, pt1, pt2);
-			x += gridsize;
-		}
+		pt1 = Point(x, 0);
+		pt2 = Point(x, h);
+		g->DrawLine(pen, pt1, pt2);
+		x += gridsize;
+	}
 }
