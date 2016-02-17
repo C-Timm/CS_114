@@ -1,3 +1,10 @@
+//============================================================================
+// Name        : Labs.cpp
+// Author      : C-Timm
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -8,6 +15,7 @@ using namespace std;
 bool ReadStudentRecord(StudentRecord* studentRecord, int& numberOfRecord);
 bool readDelimiter(string input, std::vector<string>& output, char delimiter);
 void PrintGrade(StudentRecord* studentRecord, int numberOfRecords);
+
 
 int main()
 {
@@ -29,27 +37,35 @@ int main()
 
 void PrintGrade(StudentRecord* studentRecord, int numberOfRecords)
 {
-	Grade* calc;
-	StudentRecord rec;
-	
-
-	calc->Q1(rec.quiz1);
-	calc->Q2(rec.quiz2);
-	calc->mid(rec.midterm);
-	calc->fin(rec.finalexam);
-
-	int quiz_Score = calc->get_Q1() + calc->get_Q1();
-	int midterm_Score = calc->get_Midterm();
-	int finalexam_Score = calc->get_Finalexam();
 
 
-	LetterGrade(quiz_Score, midterm_Score, finalexam_Score);
+	int index = 0;
 
+	while(index < numberOfRecords)
+	{
+		Grade* calc;
+
+		int grade = studentRecord[index].quiz1 + studentRecord[index].quiz2 +
+				studentRecord[index].midterm + studentRecord[index].finalexam;
+
+
+		double average = calc->getGrade();
+
+
+		cout << "Student Name:" << studentRecord[index].name << endl;
+		cout << "Quiz 1 Score:" << studentRecord[index].quiz1 << endl;
+		cout << "Quiz 2 Score:" << studentRecord[index].quiz2 << endl;
+		cout << "Midterm Score:" << studentRecord[index].midterm << endl;
+		cout << "Final Exam Score:" << studentRecord[index].finalexam << endl;
+		cout << "Average Score:" << average << "%" << endl;
+		cout << "Final Grade:" << letterGrade(average) <<endl;
+
+	}
 }
 
-void LetterGrade(int q, int m, int f)
+void letterGrade(double g)
 {
-	int final_Grade = q + m + f;
+	double final_Grade = g;
 	if (final_Grade > 90)
 	{
 		cout << "A" << endl;
@@ -70,6 +86,7 @@ void LetterGrade(int q, int m, int f)
 	{
 		cout << "F" << endl;
 	}
+
 
 }
 
@@ -140,7 +157,7 @@ bool ReadStudentRecord(StudentRecord* studentRecord, int& numberOfRecords)
 
 /////////////////////////////////////////////////////////////////////////
 //Function: readDelimiter, read delimiter string into a vector<string>
-//parameter: 
+//parameter:
 //string input - input string
 //std::vector<string>& output - return vector<string>
 //char delimiter -- delimiter
