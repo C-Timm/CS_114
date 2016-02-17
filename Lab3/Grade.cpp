@@ -1,58 +1,67 @@
-#include "stdafx.h"
+/*
+ * Grade.cpp
+ *  Created on: Feb 17, 2016
+ *      Author: C-Timm
+ */
+
 #include "Grade.h"
+#include <iostream>
+#include <iomanip>
 
 
-Grade::Grade()
-{
-	this->quiz1 = quiz1;
-	this->quiz2 = quiz2;
-	this->midterm = midterm;
-	this->finalexam = finalexam;
-}
-
-void Grade::Q1(int quiz1)
-{
-	int q1 = quiz1;
-	quiz1 = q1 * 0.125;
-}
-
-void Grade::Q2(int quiz2)
-{
-	int q2 = quiz2;
-	quiz2 = q2 * 0.125;
-}
-
-void Grade::mid(int midterm)
-{
-	int m = midterm;
-	midterm = m * 0.25;
-}
-
-void Grade::fin(int finalexam)
-{
-	int f = finalexam;
-	finalexam = finalexam * 0.50;
+Grade::Grade(StudentRecord* rec) {
+	memcpy(&student, rec, sizeof(StudentRecord));
+	percent();
 
 }
 
-int Grade::get_Q1()
+Grade::~Grade()
 {
-	return this->quiz1;
+}
+void Grade::percent()
+{
+	//quizzes
+	gradePercent = (float)((((student.quiz1 + student.quiz2)/ 2.0f) /10.0f)*0.25f);
+	//Midterm
+	gradePercent += (float)((student.midterm /100.0f)*0.25f);
+	//Final
+	gradePercent += (float)((student.finalexam / 100.0f)*0.50f);
+
+	gradePercent *= 100.0f;
+
 }
 
-int Grade::get_Q2()
+float Grade::getGrade()
 {
-	return this->quiz2;
+	return gradePercent;
 }
 
-int Grade::get_Midterm()
+void Grade::Letter()
 {
-	return this->midterm;
+	if (gradePercent >= 90.0f)
+	{
+		gradeLetter = 'A';
+		cout << "Final Grade: " << gradeLetter << endl;
+	}
+	else if (gradePercent >= 80.0f){
+		gradeLetter = 'B';
+		cout << "Final Grade: " << gradeLetter << endl;
+	}
+	else if (gradePercent >= 70.0f){
+		gradeLetter = 'C';
+		cout << "Final Grade: " << gradeLetter << endl;
+	}
+	else if (gradePercent >= 60.0f){
+		gradeLetter = 'D';
+		cout << "Final Grade: " << gradeLetter << endl;
+	}
+	else
+	{
+		gradeLetter = 'F';
+		cout << "Final Grade: " << gradeLetter << endl;
+	}
+
 }
 
-int Grade::get_Finalexam()
-{
-	return this->finalexam;
-}
 
 
