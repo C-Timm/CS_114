@@ -1,67 +1,65 @@
 /*
- * Grade.h
- *
- *  Created on: Feb 16, 2016
- *      Author: Bigtimetimmmy
+ * Grade.cpp
+ *  Created on: Feb 17, 2016
+ *      Author: C-Timm
  */
 
-#pragma once
-#include <string>
+#include "Grade.h"
 #include <iostream>
+#include <iomanip>
 
-class Grade
+
+Grade::Grade(StudentRecord* rec) {
+	memcpy(&student, rec, sizeof(StudentRecord));
+	percent();
+
+}
+
+Grade::~Grade()
 {
-	Grade();
+}
+void Grade::percent()
+{
+	//quizzes
+	gradePercent = (float)((((student.quiz1 + student.quiz2)/ 2.0f) /10.0f)*0.25f);
+	//Midterm
+	gradePercent += (float)((student.midterm /100.0f)*0.25f);
+	//Final
+	gradePercent += (float)((student.finalexam / 100.0f)*0.50f);
 
-	double quiz1 = 0;
-	double quiz2 = 0;
-	double midterm = 0;
-	double finalexam = 0;
-	double finalGrade = 0;
+	gradePercent *= 100.0f;
 
+}
 
-	void calcGrade()
+float Grade::getGrade()
+{
+	return gradePercent;
+}
+
+void Grade::Letter()
+{
+	if (gradePercent >= 90.0f)
 	{
-		double qTotal;
-		double mTotal;
-		double fTotal;
-
-		qTotal = quiz1 + quiz2;
-		qTotal /= 20;
-		qTotal *= 0.25;
-
-		mTotal = midterm;
-		mTotal /= 100;
-		mTotal *= 0.25;
-
-		fTotal = finalexam;
-		fTotal /= 100;
-		fTotal *= 0.50;
-
-		finalGrade = fTotal + mTotal + qTotal;
-
+		gradeLetter = 'A';
+		cout << "Final Grade: " << gradeLetter << endl;
+	}
+	else if (gradePercent >= 80.0f){
+		gradeLetter = 'B';
+		cout << "Final Grade: " << gradeLetter << endl;
+	}
+	else if (gradePercent >= 70.0f){
+		gradeLetter = 'C';
+		cout << "Final Grade: " << gradeLetter << endl;
+	}
+	else if (gradePercent >= 60.0f){
+		gradeLetter = 'D';
+		cout << "Final Grade: " << gradeLetter << endl;
+	}
+	else
+	{
+		gradeLetter = 'F';
+		cout << "Final Grade: " << gradeLetter << endl;
 	}
 
-public:
+}
 
-
-	double getGrade()
-	{
-	calcGrade();
-	return finalGrade;
-	}
-
-	void inputGrade(double q1, double q2, double mid, double fin )
-	{
-		quiz1 = q1;
-		quiz2 = q2;
-		midterm = mid;
-		finalexam = fin;
-
-
-	}
-
-
-
-
-};
