@@ -1,9 +1,9 @@
 //============================================================================
-// Name        : Labs.cpp
+// Name        : Lab3.cpp
 // Author      : C-Timm
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Description : Grade Calculator
 //============================================================================
 #include <fstream>
 #include <iostream>
@@ -43,48 +43,22 @@ void PrintGrade(StudentRecord* studentRecord, int numberOfRecords)
 
 	while(index < numberOfRecords)
 	{
-		Grade* calc;
+		Grade *studGrade = new Grade(&studentRecord[index]);
 
-		int grade = studentRecord[index].quiz1 + studentRecord[index].quiz2 +
-				studentRecord[index].midterm + studentRecord[index].finalexam;
+		float g = studGrade->getGrade();
 
-
-		double average = calc->getGrade();
-
-
+		cout << "\n" << endl;
 		cout << "Student Name:" << studentRecord[index].name << endl;
 		cout << "Quiz 1 Score:" << studentRecord[index].quiz1 << endl;
 		cout << "Quiz 2 Score:" << studentRecord[index].quiz2 << endl;
 		cout << "Midterm Score:" << studentRecord[index].midterm << endl;
 		cout << "Final Exam Score:" << studentRecord[index].finalexam << endl;
-		cout << "Average Score:" << average << "%" << endl;
-		cout << "Final Grade:" << letterGrade(average) <<endl;
+		cout << "Average Score:" << g << endl;
+		studGrade->Letter();
 
-	}
-}
+		index++;
 
-void letterGrade(double g)
-{
-	double final_Grade = g;
-	if (final_Grade > 90)
-	{
-		cout << "A" << endl;
-	}
-	else if (final_Grade >= 80)
-	{
-		cout << "B" << endl;
-	}
-	else if (final_Grade >= 70)
-	{
-		cout << "C" << endl;
-	}
-	else if (final_Grade >= 60)
-	{
-		cout << "D" << endl;
-	}
-	else if (final_Grade < 60)
-	{
-		cout << "F" << endl;
+		delete studGrade;
 	}
 
 
