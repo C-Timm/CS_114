@@ -4,8 +4,8 @@
  *      Author: C-Timm
  */
 
-#ifndef Grade_h_
-#define Grade_h_
+#ifndef Grade.h
+#define Grade.h
 #include <math.h>
 #include "StudentRecord.h"
 

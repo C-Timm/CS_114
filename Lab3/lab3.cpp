@@ -127,7 +127,7 @@ bool ReadStudentRecord(StudentRecord* studentRecord, int& numberOfRecords)
 		return false;
 	}
 	return true;
-}
+};
 
 /////////////////////////////////////////////////////////////////////////
 //Function: readDelimiter, read delimiter string into a vector<string>
@@ -163,4 +163,4 @@ bool readDelimiter(string input, std::vector<string>& output, char delimiter)
 			return false;
 	}
 	return true;
-}
+}; 
